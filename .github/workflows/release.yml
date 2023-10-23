@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-18.04
+          - os: ubuntu-20.04
             target: x86_64-unknown-linux-musl
             kind: bare
     runs-on: ${{ matrix.os }}
@@ -20,8 +20,10 @@ jobs:
         uses: ./.github/workflows/setup
         with:
           target: ${{ matrix.target }}
+      - name: Add Rust target
+        run: rustup target add ${{ matrix.target }}
       - name: Build Rust package
-        run: cargo build -p mdbook-quiz --release --locked ${{ matrix.kind == 'full' && '--features rust-editor --features aquascope' || '' }}
+        run: cargo build --target ${{ matrix.target }} -p mdbook-quiz --release --locked ${{ matrix.kind == 'full' && '--features rust-editor --features aquascope' || '' }}
       - name: Package artifact
         run: tar -czf mdbook-quiz_${{ matrix.target }}_${{ matrix.kind }}.tar.gz mdbook-quiz
         working-directory: target/release
