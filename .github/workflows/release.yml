@@ -10,13 +10,21 @@ jobs:
     strategy:
       matrix:
         include:
-          # x86
+          # x86 gnu
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
             kind: full
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
             kind: bare
+          # x86 musl  
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+            kind: full
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+            kind: bare
+          # x86 macos
           - os: macos-latest
             target: x86_64-apple-darwin
             kind: bare
@@ -72,6 +80,8 @@ jobs:
           files: |
             x86_64-unknown-linux-gnu_full/mdbook-quiz_x86_64-unknown-linux-gnu_full.tar.gz
             x86_64-unknown-linux-gnu_bare/mdbook-quiz_x86_64-unknown-linux-gnu_bare.tar.gz
+            x86_64-unknown-linux-musl_full/mdbook-quiz_x86_64-unknown-linux-musl_full.tar.gz
+            x86_64-unknown-linux-musl_bare/mdbook-quiz_x86_64-unknown-linux-musl_bare.tar.gz
             x86_64-apple-darwin_bare/mdbook-quiz_x86_64-apple-darwin_bare.tar.gz
             aarch64-unknown-linux-gnu_bare/mdbook-quiz_aarch64-unknown-linux-gnu_bare.tar.gz
             aarch64-apple-darwin_bare/mdbook-quiz_aarch64-apple-darwin_bare.tar.gz      
