@@ -10,35 +10,8 @@ jobs:
     strategy:
       matrix:
         include:
-          # x86 gnu
-          - os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-            kind: full
-          - os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-            kind: bare
-          # x86 musl  
           - os: ubuntu-latest
             target: x86_64-unknown-linux-musl
-            kind: full
-          - os: ubuntu-latest
-            target: x86_64-unknown-linux-musl
-            kind: bare
-          # x86 macos
-          - os: macos-latest
-            target: x86_64-apple-darwin
-            kind: bare
-          ## TODO: Windows needs specific configuration to find
-          ## NPM globally installed binaries, and I couldn't figure 
-          ## it out in ~30 minutes. Deal with this later.
-          # - os: windows-latest
-          #   target: x86_64-pc-windows-msvc
-          # ARM
-          - os: ubuntu-latest
-            target: aarch64-unknown-linux-gnu
-            kind: bare
-          - os: macos-latest
-            target: aarch64-apple-darwin
             kind: bare
     runs-on: ${{ matrix.os }}
     steps:
@@ -78,13 +51,7 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           files: |
-            x86_64-unknown-linux-gnu_full/mdbook-quiz_x86_64-unknown-linux-gnu_full.tar.gz
-            x86_64-unknown-linux-gnu_bare/mdbook-quiz_x86_64-unknown-linux-gnu_bare.tar.gz
-            x86_64-unknown-linux-musl_full/mdbook-quiz_x86_64-unknown-linux-musl_full.tar.gz
             x86_64-unknown-linux-musl_bare/mdbook-quiz_x86_64-unknown-linux-musl_bare.tar.gz
-            x86_64-apple-darwin_bare/mdbook-quiz_x86_64-apple-darwin_bare.tar.gz
-            aarch64-unknown-linux-gnu_bare/mdbook-quiz_aarch64-unknown-linux-gnu_bare.tar.gz
-            aarch64-apple-darwin_bare/mdbook-quiz_aarch64-apple-darwin_bare.tar.gz      
             schema/mdbook-quiz.schema.json
     
   publish-crate:
